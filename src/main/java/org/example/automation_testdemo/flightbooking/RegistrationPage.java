@@ -4,6 +4,7 @@ import org.example.automation_testdemo.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegistrationPage extends AbstractPage {
 
@@ -45,7 +46,8 @@ public class RegistrationPage extends AbstractPage {
 
     @Override
     public boolean isAt() {
-        return false;
+        this.webDriverWait.until(ExpectedConditions.visibilityOf(fName));
+        return this.fName.isDisplayed();
     }
 
     public void goToUrl(String url){
