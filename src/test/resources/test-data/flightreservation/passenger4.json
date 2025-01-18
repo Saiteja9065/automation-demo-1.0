@@ -1,0 +1,11 @@
+{
+  "firstName": "ss",
+  "lastName": "thaman",
+  "email": "ss.thaman@gmail.com",
+  "password": "sst",
+  "street": "455 main street",
+  "city": "detroit",
+  "zip": "40001",
+  "passengersCount": "4",
+  "expectedPrice": "$2338 USD"
+}

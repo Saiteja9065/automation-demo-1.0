@@ -79,6 +79,9 @@ public class DashboardPage extends AbstractPage {
 
     public void logout(){
         this.profileImage.click();
+        this.webDriverWait.until(ExpectedConditions.visibilityOf(this.logoutPage));
         this.logoutPage.click();
-        this.logoutBtn.click();}
+        this.webDriverWait.until(ExpectedConditions.visibilityOf(this.logoutBtn));
+        this.logoutBtn.click();
+    }
 }

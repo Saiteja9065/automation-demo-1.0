@@ -2,6 +2,7 @@ package org.example.automation_testdemo.tests.flightreservation;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.automation_testdemo.flightbooking.*;
+import org.example.automation_testdemo.tests.AbstractTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -10,9 +11,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class FlightReservationTest {
+public class FlightReservationTest extends AbstractTest {
 
-    private WebDriver driver;
     private String noOfPassengers;
     private String expectedPrice;
 
@@ -21,9 +21,6 @@ public class FlightReservationTest {
     public void setDriver(String noOfPassengers, String expectedPrice){
         this.noOfPassengers = noOfPassengers;
         this.expectedPrice = expectedPrice;
-        //driver setup
-        WebDriverManager.chromedriver().setup();
-        this.driver = new ChromeDriver();
     }
 
     @Test
@@ -68,8 +65,4 @@ public class FlightReservationTest {
         Assert.assertEquals(confirmation.getTicketPrice(),expectedPrice);
     }
 
-    @AfterTest
-    public void quitTest(){
-        this.driver.quit();
-    }
 }
