@@ -12,6 +12,8 @@ public class RegistrationConfirmationPage extends AbstractPage {
     @FindBy(id = "go-to-flights-search")
     private WebElement flightSearch;
 
+    @FindBy(css = "#registration-confirmation-section p b")
+    private WebElement firstnamevalue;
     public RegistrationConfirmationPage(WebDriver driver){
         super(driver);
     }
@@ -20,6 +22,10 @@ public class RegistrationConfirmationPage extends AbstractPage {
     public boolean isAt(){
         this.webDriverWait.until(ExpectedConditions.visibilityOf(this.flightSearch));
         return this.flightSearch.isDisplayed();
+    }
+
+    public String getFirstName(){
+        return this.firstnamevalue.getText();
     }
 
     public void registerConfirm(){

@@ -6,6 +6,6 @@
   "street": "101 non main street",
   "city": "las vegas",
   "zip": "50001",
-  "passengersCount": "3",
+  "passengerCount": "3",
   "expectedPrice": "$1753 USD"
 }

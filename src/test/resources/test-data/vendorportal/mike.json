@@ -1,4 +1,3 @@
-
 {
   "username": "mike",
   "password": "mike",
@@ -6,6 +5,6 @@
   "annualEarning": "$563,300",
   "profitMargin": "80%",
   "availableInventory": "45",
-  "searchKeyword": "miami",
-  "searchResultsCount": 10
+  "searchKey": "miami",
+  "searchResultsInfo": 10
 }

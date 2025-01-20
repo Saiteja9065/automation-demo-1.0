@@ -1,26 +1,29 @@
 package org.example.automation_testdemo.tests.flightreservation;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.automation_testdemo.flightbooking.*;
 import org.example.automation_testdemo.tests.AbstractTest;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.example.automation_testdemo.tests.flightreservation.model.FlightReservationTestData;
+import org.example.automation_testdemo.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class FlightReservationTest extends AbstractTest {
 
-    private String noOfPassengers;
-    private String expectedPrice;
+    private static final Logger log = LoggerFactory.getLogger(FlightReservationTest.class);
+
+    private FlightReservationTestData testData;
+
 
     @BeforeTest
-    @Parameters({"noOfPassengers", "expectedPrice"})
-    public void setDriver(String noOfPassengers, String expectedPrice){
-        this.noOfPassengers = noOfPassengers;
-        this.expectedPrice = expectedPrice;
+    @Parameters("testDataPath")
+    public void setPageEnvironment(String testDataPath){
+        this.testData = JsonUtil.getTestdata(testDataPath, FlightReservationTestData.class);
+        log.info("Test data set successfully");
+
     }
 
     @Test
@@ -29,10 +32,11 @@ public class FlightReservationTest extends AbstractTest {
         registrationPage.goToUrl("https://d1uh9e7cu07ukd.cloudfront.net/selenium-docker/reservation-app/index.html");
         Assert.assertTrue(registrationPage.isAt());
 
-        registrationPage.enterUserDetails("selenium","docker-mama");
-        registrationPage.enterUserCredentials("selenium.docker@gmail.com","sdocker@123");
-        registrationPage.enterAddress("timesNewStreet","New York city","500032");
+        registrationPage.enterUserDetails(testData.getFirstName(), testData.getLastName());
+        registrationPage.enterUserCredentials(testData.getEmail(), testData.getPassword());
+        registrationPage.enterAddress(testData.getStreet(), testData.getCity(), testData.getZip());
         registrationPage.register();
+        log.info("User registered successfully");
     }
 
     @Test(dependsOnMethods = "userRegistrationTest")
@@ -46,7 +50,7 @@ public class FlightReservationTest extends AbstractTest {
     public void flightSearchTest(){
         FlightSearch search = new FlightSearch(driver);
         Assert.assertTrue(search.isAt());
-        search.selectPassengers(noOfPassengers);
+        search.selectPassengers(testData.getPassengerCount());
         search.searchFlight();
     }
 
@@ -62,7 +66,7 @@ public class FlightReservationTest extends AbstractTest {
     public void flightConfirmationTest(){
         FlightConfirmation confirmation = new FlightConfirmation(driver);
         Assert.assertTrue(confirmation.isAt());
-        Assert.assertEquals(confirmation.getTicketPrice(),expectedPrice);
+        Assert.assertEquals(confirmation.getTicketPrice(),testData.getExpectedPrice());
     }
 
 }
